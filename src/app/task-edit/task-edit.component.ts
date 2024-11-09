@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../task.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { User, UserService } from '../../user.service';
 
 @Component({
   selector: 'app-task-edit',
@@ -15,9 +16,11 @@ export class TaskEditComponent implements OnInit {
   taskId: number
   taskForm: any;
   CurrentTask: any;
+  users: User[] = [];
 
   constructor(private route: ActivatedRoute, private taskService: TaskService,
-    private fb: FormBuilder, private toastr: ToastrService, private router: Router
+    private fb: FormBuilder, private toastr: ToastrService, private router: Router,
+    private userService: UserService
   ) {
     const tid = this.route.snapshot.paramMap.get('id');
     this.taskId = Number(tid);
@@ -27,7 +30,8 @@ export class TaskEditComponent implements OnInit {
       title: ['', []],
       description: ['', []],
       dueDate: ['', []],
-      priority: ['', []]
+      priority: ['', []],
+      assigneeId:['']
     })
 
   }
@@ -40,6 +44,10 @@ export class TaskEditComponent implements OnInit {
        this.taskForm.patchValue(data);
     
     });
+    this.userService.getUser().subscribe(data =>{
+      console.log(data)
+      this.users = data;
+    })
   }
 
   onSubmit() {

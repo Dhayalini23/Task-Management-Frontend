@@ -4,11 +4,15 @@ import { UserService } from '../../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 
 @Component({
   selector: 'app-user-add',
   standalone: true,
-  imports: [ReactiveFormsModule , CommonModule],
+  imports: [ReactiveFormsModule , CommonModule,
+    BsDatepickerModule],
   templateUrl: './user-add.component.html',
   styleUrl: './user-add.component.css'
 })

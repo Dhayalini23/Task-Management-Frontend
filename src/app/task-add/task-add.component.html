@@ -1,33 +1,69 @@
 <div class="container">
-    <div class="card shadow p-3 mb-5 bg-white rounded">
-     <div class="card-header">
-        <h3 class="text text-danger">Add New Task</h3>
-     </div>
-     <div class="card-body">
-        <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-                <label form="title" class="form-lable">Title</label>
-                <input type="text" class="form-control" id="title" formControlName="title">
-            </div>
-            <div class="mb-3">
-                <label form="title" class="form-lable">Description</label>
-                <input type="text" class="form-control" id="description" formControlName="description">
-            </div>
-            <div class="mb-3">
-                <label form="title" class="form-lable">Due Date</label>
-                <input type="date" class="form-control" id="dueDate" formControlName="dueDate">
-            </div>
-            <div class="mb-3">
-                <label for="exampleFormControlSelect1">Priority</label>
-               <select class="form-control" id="priority" formControlName="priority" >
-               <option value="medium">Medium</option>
-               <option value="high"> High</option>
-               <option value="low">Low</option>
-               </select>
-            </div>
-            <button type="submit" class="btn btn-primary" >Submit</button>
-            <button type="submit" class="btn btn-secondary m-1" (click)="onCancel()">Cancel</button>
-        </form>
-     </div>
-    </div>
+    <div class="row">    
+            <div class="card shadow p-3 mb-5 bg-white rounded">
+                
+                <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6">
+                                             <div class="card-header">
+                                <h3 class="text text-danger">Add New Task</h3>
+                                <hr>      
+                             </div>
+                             <div class="card-body">
+                                    <div class="mb-3">
+                                        <label form="title" class="form-lable">Title</label>
+                                        <input type="text" class="form-control" id="title" formControlName="title">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label form="title" class="form-lable">Description</label>
+                                        <input type="text" class="form-control" id="description" formControlName="description">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label form="title" class="form-lable">Due Date</label>
+                                        <input type="text"  bsDatepicker class="form-control" id="dueDate" formControlName="dueDate">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlSelect1">Priority</label>
+                                       <select class="form-control" id="priority" formControlName="priority" >
+                                       <option value="medium">Medium</option>
+                                       <option value="high"> High</option>
+                                       <option value="low">Low</option>
+                                       </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlSelect1">Assignee</label>
+                                       <select class="form-control" id="assigneeId" formControlName="assigneeId" >
+                                       <option *ngFor="let user of users" [value]="user.id">{{user.name}}</option>
+                                       </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" >Submit</button>
+                                    <button type="submit" class="btn btn-secondary m-1" (click)="onCancel()">Cancel</button>   
+                             </div></div>
+                            <div class="col-6">
+                                <h3 class="text text-danger">Enter the check List</h3>
+                                <hr>
+                                <div class="container" formArrayName="checkLists">
+                               <div class="row" *ngFor="let checkLists of myCheckLists.controls; let i=index">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <div formGroupName="i" class="d-flex">
+                                            <input type="checkbox"  id="isDone" name="isDone" formControlName="isDone">
+                                            <input type="text" class="form-control m-2" id="name" name="name" formControlName="name" >
+                                        <button class="btn btn-danger" (click)="removeCheckLists(i)">Remove</button>
+                                    </div>
+                                </div>
+
+                               </div>
+                                </div>
+                            </div>
+                                <button type="button" class="btn btn-success" (click)="addCheckList()">Add</button>
+                            </div>
+                        </div>
+                    </div>
+
+            </form>
+           
+        </div>
+ </div>
 </div>
